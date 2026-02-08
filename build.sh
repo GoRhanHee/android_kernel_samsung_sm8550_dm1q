@@ -114,3 +114,14 @@ tar -xf "$TOOLCHAIN_FILE" -C kernel_platform --strip-components=1 toolchain/preb
 
 # Cooking Kernel Soruce & boot.img
 ( env ${GKI_KERNEL_BUILD_OPTIONS} ${ANDROID_BUILD_TOP}/kernel_platform/build/android/prepare_vendor.sh sec ${TARGET_PRODUCT} || exit 1)
+
+# Copy prebuilts modules to LKM Tools
+    cp -a ${ANDROID_BUILD_TOP}/prebuilts/prebuilts/* ${ANDROID_BUILD_TOP}/out/msm-kalama-kalama-gki/dist/
+
+# Cooking vendor_boot.img
+    SCRIPT_DIR="${SCRIPT_DIR}" \
+        "${SCRIPT_DIR}/prebuilts/build_vendor_boot.sh" || exit 1
+
+# Cooking vendor_dlkm.img
+    SCRIPT_DIR="${SCRIPT_DIR}" \
+        "${SCRIPT_DIR}/prebuilts/build_vendor_dlkm.sh" || exit 1
