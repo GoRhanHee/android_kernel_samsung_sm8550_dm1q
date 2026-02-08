@@ -125,3 +125,14 @@ tar -xf "$TOOLCHAIN_FILE" -C kernel_platform --strip-components=1 toolchain/preb
 # Cooking vendor_dlkm.img
     SCRIPT_DIR="${SCRIPT_DIR}" \
         "${SCRIPT_DIR}/prebuilts/build_vendor_dlkm.sh" || exit 1
+
+# Download fastbootD patched recovery.img
+RECOVERY_URL="https://github.com/GoRhanHee/android_kernel_samsung_sm8550_dm1q/releases/download/fastbootD_EZA1/recovery.img"
+RECOVERY_FILE=$(basename "$RECOVERY_URL")
+if [ ! -f "$RECOVERY_FILE" ]; then
+    wget -q --show-progress --progress=dot:giga -O "$RECOVERY_FILE" "$RECOVERY_URL"
+fi
+
+# Cooking Flashable File
+cp ./out/msm-${CHIPSET_NAME}-${CHIPSET_NAME}-${TARGET_PRODUCT}/dist/boot.img ./boot.img
+tar -cvf Galaxy_S23_KernelSU_Next_A16.tar boot.img vendor_boot.img recovery.img
