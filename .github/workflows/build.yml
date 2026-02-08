@@ -38,7 +38,7 @@ jobs:
     - name: Upload KernelSU Artifacts
       uses: actions/upload-artifact@v4
       with:
-        name: "Fold5_Kernel_File_KSUN"
+        name: "S23_Kernel_File_KSUN"
         path: |
           ./Galaxy_S23_KernelSU_Next_A16.tar
           ./boot.img
