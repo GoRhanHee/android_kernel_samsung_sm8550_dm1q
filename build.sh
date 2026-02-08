@@ -45,7 +45,7 @@ export REGION=$(echo $BUILD_TARGET | cut -d'_' -f2)
 export CARRIER=$(echo $BUILD_TARGET | cut -d'_' -f3)
 export TARGET_BUILD_VARIANT=user
 		
-CHIPSET_NAME=$3
+CHIPSET_NAME=kalama
 
 export ANDROID_BUILD_TOP=$(pwd)
 export TARGET_PRODUCT=gki
