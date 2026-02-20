@@ -31,8 +31,20 @@
 #                                 - GoRhanHee (Thank You for Ravindu)
 # ===============================================================================================================
 
+# Setting Build Mode
+export MODE=${1:-ksun}
+if [[ "$MODE" != "ksun" && "$MODE" != "susfs" ]]; then
+    echo "Build Command: ./build.sh {mode}"
+    exit 1
+fi
+(cd custom_defconfigs && cp ${MODE}_defconfig gorhanhee_defconfig)
+
 # Import KernelSU-Next
+if [ "${MODE}" == "ksun" ]; then
 (cd kernel_platform/common && curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/next/kernel/setup.sh" | bash -)
+elif [ "${MODE}" == "susfs" ]; then
+(cd kernel_platform/common && curl -LSs "https://raw.githubusercontent.com/KernelSU-Next/KernelSU-Next/dev_susfs/kernel/setup.sh" | bash -s dev_susfs)
+fi
 
 # DIR Setting
 SCRIPT_DIR="$(dirname $(readlink -fq $0))"
